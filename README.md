@@ -3,7 +3,7 @@
 > **"Same trip. Much less money."**  
 > *“El mismo viaje. Mucho menos dinero.”*
 
-A premium travel-hacking web application designed to help travelers compare cash flight costs directly against airline award miles and credit card transfer options, making luxury travel accessible for far less money.
+A premium travel-hacking web application designed to help travelers compare cash flight costs directly against airline award miles and credit card transfer options, making luxury travel accessible for far less money
 
 ---
 
