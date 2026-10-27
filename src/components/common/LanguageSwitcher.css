@@ -1,0 +1,38 @@
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--color-ivory-200);
+  border: 1px solid rgba(220, 210, 195, 0.6);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  user-select: none;
+}
+
+.lang-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-espresso-500);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.lang-link:hover {
+  color: var(--color-espresso-900);
+}
+
+.lang-link.active {
+  color: var(--color-terracotta-600);
+  font-weight: 700;
+}
+
+.lang-divider {
+  color: var(--color-espresso-300);
+  font-size: 11px;
+}
