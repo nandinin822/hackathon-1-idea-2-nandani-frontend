@@ -12,8 +12,26 @@ export const translations = {
       awardHacking: 'Miles & Points',
       solutions: 'Solutions',
       calculator: 'Calculator',
+      wallet: 'Card Wallet',
+      rewardsPlanner: 'Spend Planner',
       signIn: 'Sign In',
       signUp: 'Sign Up',
+    },
+    benefits: {
+      milesTitle: 'Airline Miles & Transferable Points',
+      milesDesc: 'Learn how points transfer at 1:1 ratios to unlock high-value flight redemptions.',
+    },
+    wallet: {
+      title: 'Card & Rewards Wallet',
+      subtitle: 'Select your reward cards and current point balances to unlock personalized award flight valuations. Zero banking passwords or sensitive card numbers required.',
+    },
+    rewardsPlanner: {
+      title: 'Trip Rewards Planner',
+      subtitle: 'Plan future trip goals over 1 to 12 months. Python calculates points earned on your verified everyday expenses and highlights ineligible spend.',
+    },
+    milesGuide: {
+      title: 'Miles & Points: The Essential Guide',
+      subtitle: 'Learn how transferable credit card points unlock high-value flight redemptions for a fraction of their cash fare.',
     },
     hero: {
       eyebrow: 'TRAVEL HACKING, MADE SIMPLE',
@@ -255,8 +273,26 @@ export const translations = {
       awardHacking: 'Millas y puntos',
       solutions: 'Soluciones',
       calculator: 'Calculadora',
+      wallet: 'Billetera',
+      rewardsPlanner: 'Planificador',
       signIn: 'Iniciar sesión',
       signUp: 'Registrarse',
+    },
+    benefits: {
+      milesTitle: 'Millas de Aerolínea y Puntos Transferibles',
+      milesDesc: 'Descubre cómo transferir puntos 1:1 para acceder a canjes de alto valor.',
+    },
+    wallet: {
+      title: 'Billetera de Tarjetas y Recompensas',
+      subtitle: 'Selecciona tus tarjetas y saldo de puntos para desbloquear valoraciones personalizadas de vuelos. Sin contraseñas ni números bancarios.',
+    },
+    rewardsPlanner: {
+      title: 'Planificador de Recompensas',
+      subtitle: 'Planifica tus objetivos de viaje a 1-12 meses. Python calcula los puntos acumulados en tus gastos cotidianos y resalta gastos no elegibles.',
+    },
+    milesGuide: {
+      title: 'Millas y Puntos: La Guía Esencial',
+      subtitle: 'Aprende cómo los puntos transferibles de tarjetas bancarias te permiten pagar billetes de avión por una fracción de su precio en efectivo.',
     },
     hero: {
       eyebrow: 'TRAVEL HACKING, MADE SIMPLE',

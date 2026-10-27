@@ -23,6 +23,7 @@ export async function searchCashFlights({
   returnDate,
   passengers = 1,
   cabinClass = 'economy',
+  demoMode = false,
 }) {
   const payload = {
     origin: origin.trim().toUpperCase(),
@@ -33,7 +34,8 @@ export async function searchCashFlights({
     cabin_class: cabinClass.toLowerCase(),
   };
 
-  const endpoint = `${API_BASE_URL}/api/v1/flights/cash`;
+  const queryStr = demoMode ? '?demo_mode=true' : '';
+  const endpoint = `${API_BASE_URL}/api/v1/flights/cash${queryStr}`;
 
   try {
     const response = await fetch(endpoint, {

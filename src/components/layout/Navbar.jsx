@@ -60,21 +60,31 @@ export const Navbar = () => {
             >
               {t('nav.awardHacking')}
             </NavLink>
-            <button
-              type="button"
-              className="nav-link nav-btn-link"
-              onClick={() => scrollToSection('soluciones')}
+            <NavLink
+              to="/solutions"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
             >
               {t('nav.solutions')}
-            </button>
-            <button
-              type="button"
-              className="nav-link nav-btn-link nav-calc-link"
-              onClick={() => scrollToSection('calculadora')}
+            </NavLink>
+            <NavLink
+              to="/calculator"
+              className={({ isActive }) => `nav-link nav-calc-link ${isActive ? 'active' : ''}`}
             >
               <span>{t('nav.calculator')}</span>
               <span className="calc-pill-tag">1:1</span>
-            </button>
+            </NavLink>
+            <NavLink
+              to="/wallet"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              {t('nav.wallet')}
+            </NavLink>
+            <NavLink
+              to="/rewards-planner"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              {t('nav.rewardsPlanner')}
+            </NavLink>
           </nav>
 
           {/* Right Actions */}
@@ -133,20 +143,34 @@ export const Navbar = () => {
             >
               {t('nav.awardHacking')}
             </NavLink>
-            <button
-              type="button"
-              className="nav-link nav-btn-link"
-              onClick={() => scrollToSection('soluciones')}
+            <NavLink
+              to="/solutions"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              onClick={closeMobile}
             >
               {t('nav.solutions')}
-            </button>
-            <button
-              type="button"
-              className="nav-link nav-btn-link"
-              onClick={() => scrollToSection('calculadora')}
+            </NavLink>
+            <NavLink
+              to="/calculator"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              onClick={closeMobile}
             >
               {t('nav.calculator')} (1:1)
-            </button>
+            </NavLink>
+            <NavLink
+              to="/wallet"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              onClick={closeMobile}
+            >
+              {t('nav.wallet')}
+            </NavLink>
+            <NavLink
+              to="/rewards-planner"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              onClick={closeMobile}
+            >
+              {t('nav.rewardsPlanner')}
+            </NavLink>
             <div className="mobile-nav-actions">
               <button
                 type="button"

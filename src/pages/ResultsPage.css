@@ -622,3 +622,157 @@
     align-items: stretch;
   }
 }
+
+/* Data Provenance & Demo Banners */
+.data-provenance-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+.data-provenance-banner.demo {
+  background: rgba(200, 90, 50, 0.08);
+  border: 1px solid rgba(200, 90, 50, 0.25);
+  color: var(--color-terracotta-dark, #a3411e);
+}
+
+.data-provenance-banner.sandbox {
+  background: rgba(46, 111, 64, 0.08);
+  border: 1px solid rgba(46, 111, 64, 0.25);
+  color: var(--color-sage-dark, #245832);
+}
+
+/* User Wallet Summary Card in Results (Milestone D) */
+.results-wallet-card {
+  background: #FAF7F2;
+  border: 1px solid rgba(220, 210, 195, 0.9);
+  border-left: 4px solid var(--color-terracotta, #C85A32);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.results-wallet-info h4 {
+  margin: 0 0 var(--space-1) 0;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--color-espresso-950);
+}
+
+.results-wallet-info p {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-espresso-600);
+}
+
+.results-wallet-balance {
+  text-align: right;
+}
+
+.wallet-bal-num {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-terracotta, #C85A32);
+  font-family: monospace;
+}
+
+.wallet-bal-label {
+  font-size: 11px;
+  color: var(--color-espresso-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Modal for Next Supported Step */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 25, 23, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--space-4);
+}
+
+.modal-card {
+  background: #FAF7F2;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(220, 210, 195, 0.9);
+  box-shadow: 0 25px 50px -12px rgba(28, 25, 23, 0.25);
+  max-width: 520px;
+  width: 100%;
+  padding: var(--space-6);
+  position: relative;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
+}
+
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--color-espresso-950);
+  margin: 0;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--color-espresso-500);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.modal-body {
+  font-size: var(--font-size-sm);
+  color: var(--color-espresso-700);
+  line-height: 1.6;
+}
+
+.modal-summary-box {
+  background: #FFFFFF;
+  border: 1px solid rgba(220, 210, 195, 0.8);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-3) 0 var(--space-4);
+}
+
+.modal-disclaimer-note {
+  font-size: var(--font-size-xs);
+  color: var(--color-espresso-500);
+  background: rgba(220, 210, 195, 0.3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-4);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}

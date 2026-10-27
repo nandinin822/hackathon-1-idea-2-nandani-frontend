@@ -41,7 +41,7 @@ function calculateAwardEstimation(cashPrice, cabinClass = 'economy') {
   }
   const pointsCashValue = (miles * 0.012) + taxes;
   const savings = Math.max(45, Math.round(price - pointsCashValue));
-  return { miles: miles.toLocaleString(), taxes, savings };
+  return { miles: miles.toLocaleString(), rawMiles: miles, taxes, savings };
 }
 
 export const ResultsPage = () => {
@@ -61,8 +61,25 @@ export const ResultsPage = () => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
   const [expandedOfferId, setExpandedOfferId] = useState(null);
+  const [selectedOfferForModal, setSelectedOfferForModal] = useState(null);
+  const [walletProfile, setWalletProfile] = useState(null);
 
-  const fetchFlights = async () => {
+  // Load saved Card Wallet from localStorage (Milestone D)
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('bmf_card_wallet');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && (parsed.cards?.length > 0 || parsed.primaryCard)) {
+          setWalletProfile(parsed);
+        }
+      }
+    } catch {
+      // Ignore parse errors
+    }
+  }, []);
+
+  const fetchFlights = async (useDemo = false) => {
     setLoading(true);
     setError(null);
     try {
@@ -73,6 +90,7 @@ export const ResultsPage = () => {
         returnDate: tripType === 'roundTrip' ? returnDate : null,
         passengers: parseInt(passengers, 10) || 1,
         cabinClass: cabin,
+        demoMode: useDemo,
       });
       setData(response);
     } catch (err) {
@@ -84,12 +102,14 @@ export const ResultsPage = () => {
   };
 
   useEffect(() => {
-    fetchFlights();
+    fetchFlights(false);
   }, [origin, destination, departure, returnDate, cabin, passengers]);
 
   const toggleExpand = (id) => {
     setExpandedOfferId((prev) => (prev === id ? null : id));
   };
+
+  const isDuffelUnconfigured = error && error.toLowerCase().includes('not configured');
 
   return (
     <div className="subpage results-page-view">
@@ -115,7 +135,7 @@ export const ResultsPage = () => {
                 {origin} ➔ {destination}
               </span>
               <span className="results-meta">
-                📅 {departure} {returnDate ? `— ${returnDate}` : `(${tripType === 'oneWay' ? 'Solo ida' : 'One Way'})`} • 👤 {passengers} {language === 'es' ? 'pasajero(s)' : 'passenger(s)'} • 💺 {cabin.toUpperCase()}
+                📅 {departure} {returnDate ? `— ${returnDate}` : `(${tripType === 'oneWay' ? (language === 'es' ? 'Solo ida' : 'One Way') : (language === 'es' ? 'Ida y vuelta' : 'Round Trip')})`} • 👤 {passengers} {language === 'es' ? 'pasajero(s)' : 'passenger(s)'} • 💺 {cabin.toUpperCase()}
               </span>
             </div>
             <Link to="/#vuelos">
@@ -124,6 +144,24 @@ export const ResultsPage = () => {
               </Button>
             </Link>
           </div>
+
+          {/* User's Connected Wallet Profile Callout (Milestone D) */}
+          {walletProfile && (
+            <div className="results-wallet-card" role="region" aria-label="Wallet Profile Context">
+              <div className="results-wallet-info">
+                <h4>💳 {language === 'es' ? 'Billetera Conectada' : 'Connected Card Wallet'}: {walletProfile.primaryCard?.cardName || (language === 'es' ? 'Tarjetas guardadas' : 'Saved Cards')}</h4>
+                <p>
+                  {language === 'es'
+                    ? `Mercado: ${walletProfile.market || 'EE. UU.'} • Programa: ${walletProfile.primaryCard?.programName || 'Transferible'} • Disponible para canje`
+                    : `Market: ${walletProfile.market || 'US'} • Programme: ${walletProfile.primaryCard?.programName || 'Transferable'} • Available for award flights`}
+                </p>
+              </div>
+              <div className="results-wallet-balance">
+                <span className="wallet-bal-num">{(walletProfile.primaryCard?.pointsBalance || 0).toLocaleString()} pts</span>
+                <span className="wallet-bal-label">{language === 'es' ? 'Saldo de puntos' : 'Points Balance'}</span>
+              </div>
+            </div>
+          )}
 
           {/* Loading State Skeleton */}
           {loading && (
@@ -149,9 +187,14 @@ export const ResultsPage = () => {
                 <h3 className="error-title">{t('results.errorTitle')}</h3>
                 <p className="error-message">{error}</p>
                 <div className="error-actions-row">
-                  <Button variant="primary" size="sm" onClick={fetchFlights}>
+                  <Button variant="primary" size="sm" onClick={() => fetchFlights(false)}>
                     🔄 {t('results.retryBtn')}
                   </Button>
+                  {isDuffelUnconfigured && (
+                    <Button variant="secondary" size="sm" onClick={() => fetchFlights(true)}>
+                      🧪 {language === 'es' ? 'Ver con datos de demostración' : 'Explore with Demo Offers'}
+                    </Button>
+                  )}
                   <Link to="/#vuelos">
                     <Button variant="outline" size="sm">
                       {t('results.backToSearch')}
@@ -162,9 +205,32 @@ export const ResultsPage = () => {
             </div>
           )}
 
-          {/* Success State with Live Duffel Offers */}
+          {/* Success State with Live or Demo Duffel Offers */}
           {!loading && !error && data && (
             <>
+              {/* Provenance Banner */}
+              {data.is_demo ? (
+                <div className="data-provenance-banner demo">
+                  <span>⚠️</span>
+                  <div>
+                    <strong>{language === 'es' ? 'MODO DEMOSTRACIÓN:' : 'DEMO FIXTURE MODE:'}</strong>{' '}
+                    {data.demo_notice || (language === 'es'
+                      ? 'La API en vivo de Duffel no está configurada en el servidor. Estas ofertas son datos de prueba ilustrativos.'
+                      : 'Duffel live API key is unconfigured on the backend. These offers are illustrative test fixtures.')}
+                  </div>
+                </div>
+              ) : !data.live_mode ? (
+                <div className="data-provenance-banner sandbox">
+                  <span>🧪</span>
+                  <div>
+                    <strong>{language === 'es' ? 'ENTORNO SANDBOX DUFFEL:' : 'DUFFEL SANDBOX MODE:'}</strong>{' '}
+                    {language === 'es'
+                      ? 'Conectado a la API de prueba de Duffel. Estructura de vuelo real con horarios y tarifas simuladas del proveedor de pruebas.'
+                      : 'Connected to Duffel Test API. Real flight query structure with simulated schedules and test fares.'}
+                  </div>
+                </div>
+              ) : null}
+
               {/* Offers Count & Live Pill */}
               <div className="results-status-banner">
                 <div className="results-count-wrap">
@@ -174,7 +240,7 @@ export const ResultsPage = () => {
                   </span>
                 </div>
                 <div className="duffel-live-tag">
-                  <span className="live-pulse" /> Powered by Duffel API
+                  <span className="live-pulse" /> {data.is_demo ? 'Demo Flight Fixtures' : 'Powered by Duffel API'}
                 </div>
               </div>
 
@@ -194,118 +260,108 @@ export const ResultsPage = () => {
                 <div className="results-list">
                   {data.offers.map((offer) => {
                     const firstSlice = offer.slices?.[0];
-                    const returnSlice = offer.slices?.[1];
                     const firstSegment = firstSlice?.segments?.[0];
                     const lastSegment = firstSlice?.segments?.[firstSlice.segments.length - 1];
-
-                    const airline = offer.airline_name || firstSegment?.carrier_name || 'Commercial Airline';
-                    const flightNum = firstSegment?.flight_number ? `${firstSegment.carrier_code} ${firstSegment.flight_number}` : offer.airline_code || 'Scheduled';
-                    const departTime = formatFlightTime(firstSegment?.departing_at);
-                    const arriveTime = formatFlightTime(lastSegment?.arriving_at);
-                    const durationText = formatDuration(firstSlice?.duration);
                     const stopsCount = (firstSlice?.segments?.length || 1) - 1;
-
+                    const airline = offer.airline_name || firstSegment?.carrier_name || 'Airline Partner';
+                    const flightNum = firstSegment?.flight_number ? `${firstSegment.carrier_code || ''} ${firstSegment.flight_number}` : '';
                     const award = calculateAwardEstimation(offer.total_price, cabin);
                     const isExpanded = expandedOfferId === offer.id;
 
+                    // Milestone D: Wallet balance vs needed comparison
+                    const userBalance = walletProfile?.primaryCard?.pointsBalance || 0;
+                    const hasEnoughPoints = userBalance >= award.rawMiles;
+
                     return (
-                      <article key={offer.id} className="result-card-live">
-                        {/* Top Metadata Pill */}
-                        <div className="result-card-header">
-                          <span className="result-provider-pill">
-                            <span className="sparkle">⚡</span> Duffel #{offer.id.slice(0, 14)}
-                          </span>
-                          <span className="result-route-code">
-                            {firstSlice?.origin?.iata_code || origin} ➔ {firstSlice?.destination?.iata_code || destination}
-                          </span>
-                        </div>
-
+                      <article key={offer.id} className="result-flight-card">
                         <div className="result-card-main-grid">
-                          {/* Col 1: Flight Itinerary */}
-                          <div className="result-col-itinerary">
-                            <div className="airline-badge-row">
-                              <span className="carrier-icon">✈️</span>
-                              <div>
-                                <h4 className="carrier-name">{airline}</h4>
-                                <span className="flight-code-label">{flightNum}</span>
-                              </div>
+                          {/* 1. Airline branding */}
+                          <div className="result-col-airline">
+                            <div className="airline-badge-icon" aria-hidden="true">
+                              {offer.airline_code || '✈️'}
                             </div>
-
-                            <div className="flight-timeline-row">
-                              <div className="time-block">
-                                <span className="time-val">{departTime}</span>
-                                <span className="airport-val">{firstSlice?.origin?.iata_code || origin}</span>
-                              </div>
-
-                              <div className="duration-track">
-                                <span className="duration-label">{durationText}</span>
-                                <div className="track-line">
-                                  <span className="track-dot start" />
-                                  <span className="track-dot end" />
-                                </div>
-                                <span className="stops-label">
-                                  {stopsCount === 0
-                                    ? t('results.stopsDirect')
-                                    : `${stopsCount} ${stopsCount === 1 ? t('results.stopsOne') : t('results.stopsMulti')}`}
-                                </span>
-                              </div>
-
-                              <div className="time-block">
-                                <span className="time-val">{arriveTime}</span>
-                                <span className="airport-val">{firstSlice?.destination?.iata_code || destination}</span>
-                              </div>
+                            <div className="airline-text-wrap">
+                              <h4 className="airline-name-title">{airline}</h4>
+                              <span className="airline-flight-num">{flightNum} • {cabin.toUpperCase()}</span>
                             </div>
-
-                            {/* Return slice preview if roundtrip */}
-                            {returnSlice && (
-                              <div className="return-slice-badge">
-                                <span>↩️ {language === 'es' ? 'Regreso' : 'Return'}: {formatFlightTime(returnSlice.segments?.[0]?.departing_at)} ➔ {formatFlightTime(returnSlice.segments?.[returnSlice.segments.length - 1]?.arriving_at)} ({formatDuration(returnSlice.duration)})</span>
-                              </div>
-                            )}
                           </div>
 
-                          {/* Col 2: Cash Price & Points Comparison Math */}
-                          <div className="result-col-comparison">
-                            <div className="cash-price-box">
-                              <span className="comp-label">{t('results.cashPrice')}</span>
-                              <div className="cash-amount-row">
-                                <span className="cash-val">${offer.total_price}</span>
-                                <span className="currency-val">{offer.currency}</span>
-                              </div>
+                          {/* 2. Schedule and route */}
+                          <div className="result-col-schedule">
+                            <div className="schedule-point">
+                              <span className="schedule-time">{formatFlightTime(firstSegment?.departing_at)}</span>
+                              <span className="schedule-code">{firstSlice?.origin?.iata_code || origin}</span>
                             </div>
 
-                            <div className="award-points-box">
-                              <div className="award-header-row">
-                                <span className="comp-label-award">{t('results.awardValue')}</span>
-                                <span className="transfer-ratio-chip">1:1 Partners</span>
+                            <div className="schedule-flight-path">
+                              <span className="flight-duration">{formatDuration(firstSlice?.duration)}</span>
+                              <div className="flight-route-line">
+                                <div className="route-line-bar" />
+                                <span className="route-plane-dot">✈</span>
                               </div>
-                              <div className="award-amount-row">
-                                <span className="award-miles-val">{award.miles}</span>
-                                <span className="award-miles-unit">millas</span>
-                                <span className="award-tax-val">+${award.taxes} {t('results.taxesFees')}</span>
-                              </div>
-                              <div className="award-savings-highlight">
+                              <span className="flight-stops-label">
+                                {stopsCount === 0
+                                  ? t('results.stopsDirect')
+                                  : `${stopsCount} ${stopsCount === 1 ? t('results.stopsOne') : t('results.stopsMulti')}`}
+                              </span>
+                            </div>
+
+                            <div className="schedule-point text-right">
+                              <span className="schedule-time">{formatFlightTime(lastSegment?.arriving_at)}</span>
+                              <span className="schedule-code">{firstSlice?.destination?.iata_code || destination}</span>
+                            </div>
+                          </div>
+
+                          {/* 3. Pricing & Award Comparison (Separated & Disclosed) */}
+                          <div className="result-col-comparison">
+                            <div className="comp-item-cash">
+                              <span className="comp-label">{t('results.cashPrice')}</span>
+                              <span className="comp-price-cash">
+                                ${offer.total_amount} <small>{offer.currency}</small>
+                              </span>
+                              <span className="comp-cash-disclaimer">
+                                {offer.is_demo ? 'Demo fare' : 'Duffel cash fare'}
+                              </span>
+                            </div>
+
+                            <div className="comp-divider-arrow" aria-hidden="true">⇄</div>
+
+                            <div className="comp-item-award">
+                              <span className="comp-label-award">{t('results.awardValue')}</span>
+                              <span className="comp-miles-amount font-mono">
+                                {award.miles} <small>pts/millas</small>
+                              </span>
+                              <span className="award-tax-val">+${award.taxes} {t('results.taxesFees')}</span>
+                              <div className="comp-savings-tag">
                                 <span>✨ {t('results.potentialSavings')}: <strong>~${award.savings} USD</strong></span>
                               </div>
+                              {walletProfile && (
+                                <div style={{ fontSize: '11px', marginTop: '4px', color: hasEnoughPoints ? 'var(--color-sage, #2E6F40)' : 'var(--color-terracotta, #C85A32)' }}>
+                                  {hasEnoughPoints
+                                    ? `✓ ${language === 'es' ? 'Tienes suficientes puntos en tu billetera' : 'You have enough points in your wallet'}`
+                                    : `⚠️ ${language === 'es' ? `Te faltan ${(award.rawMiles - userBalance).toLocaleString()} puntos` : `Need ${(award.rawMiles - userBalance).toLocaleString()} more points`}`}
+                                </div>
+                              )}
                             </div>
                           </div>
 
-                          {/* Col 3: Actions */}
+                          {/* 4. Action Buttons */}
                           <div className="result-col-actions">
-                            <button
-                              type="button"
-                              className="view-details-btn"
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="btn-expand-details"
                               onClick={() => toggleExpand(offer.id)}
+                              aria-expanded={isExpanded}
                             >
-                              {isExpanded ? (language === 'es' ? 'Ocultar detalles' : 'Hide details') : (language === 'es' ? 'Ver detalles' : 'Flight details')}
-                            </button>
+                              {isExpanded ? (language === 'es' ? 'Ocultar detalles ▴' : 'Hide details ▴') : (language === 'es' ? 'Ver segmentos ▾' : 'View segments ▾')}
+                            </Button>
+
                             <Button
                               variant="primary"
                               size="sm"
-                              className="select-offer-btn"
-                              onClick={() => {
-                                alert(`Redirigiendo a reserva oficial con ${airline} (${flightNum}) por ${offer.total_amount} ${offer.currency}.`);
-                              }}
+                              className="btn-select-offer"
+                              onClick={() => setSelectedOfferForModal(offer)}
                             >
                               {t('results.viewOffer')} ➔
                             </Button>
@@ -332,7 +388,10 @@ export const ResultsPage = () => {
                               ))}
                             </div>
                             <div className="drawer-award-tip">
-                              💡 <strong>{language === 'es' ? 'Estrategia recomendada:' : 'Recommended Strategy:'}</strong> {language === 'es' ? `Transfiere ${award.miles} puntos de Amex o Chase hacia la alianza de ${airline} para ahorrar hasta $${award.savings} USD frente al pago íntegro en efectivo.` : `Transfer ${award.miles} points from Amex or Chase to ${airline}'s alliance to save up to $${award.savings} USD compared to paying full cash.`}
+                              💡 <strong>{language === 'es' ? 'Estrategia ilustrativa de canje:' : 'Illustrative Redemption Strategy:'}</strong>{' '}
+                              {language === 'es'
+                                ? `Transfiere ${award.miles} puntos de programas bancarios asociados hacia la aerolínea para ahorrar hasta $${award.savings} USD frente al pago íntegro en efectivo. (Estimación demostrativa sujeta a disponibilidad de plazas award).`
+                                : `Transfer ${award.miles} points from transferable bank programs to the airline to save up to $${award.savings} USD over full cash fare. (Illustrative calculation; award seats subject to airline award inventory).`}
                             </div>
                           </div>
                         )}
@@ -342,6 +401,50 @@ export const ResultsPage = () => {
                 </div>
               )}
             </>
+          )}
+
+          {/* Modal for Next Supported Step (Milestone A Rule 6) */}
+          {selectedOfferForModal && (
+            <div className="modal-backdrop" onClick={() => setSelectedOfferForModal(null)} role="dialog" aria-modal="true">
+              <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+                <div className="modal-header">
+                  <h3 className="modal-title">{language === 'es' ? 'Siguiente paso: Revisar con la aerolínea' : 'Next Step: Review with Airline'}</h3>
+                  <button className="modal-close-btn" onClick={() => setSelectedOfferForModal(null)} aria-label="Close modal">✕</button>
+                </div>
+                <div className="modal-body">
+                  <p>
+                    {language === 'es'
+                      ? `Has seleccionado la oferta con ${selectedOfferForModal.airline_name || 'la aerolínea'} para la ruta ${origin} ➔ ${destination}.`
+                      : `You selected the offer with ${selectedOfferForModal.airline_name || 'the carrier'} for route ${origin} ➔ ${destination}.`}
+                  </p>
+                  <div className="modal-summary-box">
+                    <div><strong>{language === 'es' ? 'Tarifa en efectivo:' : 'Cash Fare:'}</strong> ${selectedOfferForModal.total_amount} {selectedOfferForModal.currency}</div>
+                    <div><strong>{language === 'es' ? 'Cabina:' : 'Cabin:'}</strong> {cabin.toUpperCase()}</div>
+                    <div><strong>{language === 'es' ? 'Proveedor de datos:' : 'Data Provider:'}</strong> {selectedOfferForModal.provider}</div>
+                  </div>
+                  <div className="modal-disclaimer-note">
+                    ℹ️ <strong>{language === 'es' ? 'Alcance de Hackathon MVP:' : 'Hackathon MVP Scope:'}</strong>{' '}
+                    {language === 'es'
+                      ? 'La emisión automática de billetes y pasarelas de pago bancario no están activadas en esta fase del prototipo. El siguiente paso recomendado es verificar la disponibilidad directamente en la web del transportista o transferir tus puntos bancarios.'
+                      : 'Automatic ticket issuance and bank payment processing are not active in this prototype milestone. The recommended next step is to confirm availability directly on the carrier website or initiate points transfer.'}
+                  </div>
+                  <div className="modal-actions">
+                    <Button variant="outline" size="sm" onClick={() => setSelectedOfferForModal(null)}>
+                      {language === 'es' ? 'Cerrar' : 'Close'}
+                    </Button>
+                    <a
+                      href={selectedOfferForModal.booking_url || `https://www.google.com/travel/flights?q=${origin}+to+${destination}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button variant="primary" size="sm">
+                        🌐 {language === 'es' ? `Visitar portal de ${selectedOfferForModal.airline_name || 'la aerolínea'}` : `Visit ${selectedOfferForModal.airline_name || 'Airline'} Site`}
+                      </Button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </main>

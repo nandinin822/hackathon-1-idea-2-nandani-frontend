@@ -1,0 +1,276 @@
+/* Rewards Planner Page Styles */
+.planner-page-view {
+  min-height: 80vh;
+}
+
+.planner-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: var(--space-8);
+  margin-top: var(--space-6);
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .planner-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.planner-form-card,
+.planner-results-card {
+  background: #FAF7F2;
+  border: 1px solid rgba(220, 210, 195, 0.9);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: 0 4px 20px rgba(28, 25, 23, 0.04);
+}
+
+.form-block {
+  margin-bottom: var(--space-6);
+}
+
+.form-block:last-child {
+  margin-bottom: 0;
+}
+
+.form-block-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--color-espresso-950);
+  margin: 0 0 var(--space-3) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.horizon-tabs {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.horizon-tab-btn {
+  flex: 1;
+  background: #FFFFFF;
+  border: 1px solid rgba(220, 210, 195, 0.8);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-espresso-800);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.horizon-tab-btn:hover {
+  border-color: var(--color-terracotta, #C85A32);
+}
+
+.horizon-tab-btn.active {
+  background: var(--color-terracotta, #C85A32);
+  color: #FFFFFF;
+  border-color: var(--color-terracotta, #C85A32);
+}
+
+.goal-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 600px) {
+  .goal-selector-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.goal-card-btn {
+  background: #FFFFFF;
+  border: 2px solid rgba(220, 210, 195, 0.8);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.goal-card-btn:hover {
+  border-color: rgba(200, 90, 50, 0.5);
+}
+
+.goal-card-btn.active {
+  border-color: var(--color-terracotta, #C85A32);
+  background: rgba(200, 90, 50, 0.04);
+}
+
+.goal-icon {
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.goal-name {
+  display: block;
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  color: var(--color-espresso-950);
+  margin-bottom: var(--space-1);
+}
+
+.goal-sub {
+  font-size: 11px;
+  color: var(--color-espresso-600);
+  line-height: 1.4;
+}
+
+.expenses-inputs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+@media (max-width: 600px) {
+  .expenses-inputs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.expense-field-box {
+  background: #FFFFFF;
+  border: 1px solid rgba(220, 210, 195, 0.8);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+
+.expense-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-1);
+}
+
+.expense-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-espresso-800);
+}
+
+.expense-multiplier-hint {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-terracotta, #C85A32);
+  background: rgba(200, 90, 50, 0.08);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.expense-input-row {
+  display: flex;
+  align-items: center;
+}
+
+.currency-symbol {
+  font-size: var(--font-size-sm);
+  color: var(--color-espresso-500);
+  margin-right: 4px;
+}
+
+.expense-input {
+  width: 100%;
+  border: none;
+  font-family: monospace;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-espresso-950);
+  background: transparent;
+}
+
+.expense-input:focus {
+  outline: none;
+}
+
+/* Results Card */
+.projection-hero-box {
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(220, 210, 195, 0.9);
+  padding: var(--space-5);
+  text-align: center;
+  margin-bottom: var(--space-5);
+}
+
+.projection-pts-huge {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-terracotta, #C85A32);
+  font-family: monospace;
+  line-height: 1.1;
+  display: block;
+}
+
+.projection-sub {
+  font-size: var(--font-size-xs);
+  color: var(--color-espresso-600);
+  margin-top: var(--space-1);
+  display: block;
+}
+
+.points-composition-bars {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px dashed rgba(220, 210, 195, 0.8);
+  font-size: var(--font-size-xs);
+}
+
+.comp-bar-item span {
+  display: block;
+}
+
+.comp-bar-item .val {
+  font-weight: 700;
+  color: var(--color-espresso-900);
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+.breakdown-card-section {
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(220, 210, 195, 0.8);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid rgba(220, 210, 195, 0.4);
+}
+
+.breakdown-row:last-child {
+  border-bottom: none;
+}
+
+.reasons-list,
+.assumptions-list {
+  padding-left: var(--space-4);
+  font-size: var(--font-size-xs);
+  color: var(--color-espresso-600);
+  line-height: 1.5;
+  margin: var(--space-2) 0;
+}
+
+.warning-callout-box {
+  background: rgba(200, 90, 50, 0.08);
+  border-left: 3px solid var(--color-terracotta, #C85A32);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-espresso-800);
+  margin-bottom: var(--space-4);
+}
