@@ -156,7 +156,7 @@ export const PointsCalculator = () => {
   const optimizedVal = Math.round(points * 0.043);
 
   return (
-    <section className="calc-section" id="calculadora">
+    <section className="calc-section reveal-on-scroll" id="calculadora">
       <div className="container">
         <div className="calc-layout-grid">
           {/* Left Column: Bank Selection & Points Slider */}

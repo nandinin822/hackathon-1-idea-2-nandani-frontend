@@ -123,7 +123,7 @@ export const TripPlannerPage = () => {
                 style={{
                   fontSize: '13px',
                   fontWeight: currentStep === s.step ? 700 : 500,
-                  color: currentStep === s.step ? 'var(--color-terracotta, #C85A32)' : (currentStep > s.step ? 'var(--color-sage, #2E6F40)' : 'var(--color-espresso-500)'),
+                  color: currentStep === s.step ? 'var(--color-terracotta, #1648a3)' : (currentStep > s.step ? 'var(--color-sage, #2E6F40)' : 'var(--color-espresso-500)'),
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
@@ -136,7 +136,7 @@ export const TripPlannerPage = () => {
           </div>
 
           {errorMsg && (
-            <div style={{ background: 'rgba(200, 90, 50, 0.1)', color: 'var(--color-terracotta, #C85A32)', padding: '10px 14px', borderRadius: '6px', marginBottom: '16px', fontSize: '13px', fontWeight: 600 }}>
+            <div style={{ background: 'rgba(22, 72, 163, 0.1)', color: 'var(--color-terracotta, #1648a3)', padding: '10px 14px', borderRadius: '6px', marginBottom: '16px', fontSize: '13px', fontWeight: 600 }}>
               ⚠️ {errorMsg}
             </div>
           )}
@@ -191,7 +191,7 @@ export const TripPlannerPage = () => {
                       <button
                         type="button"
                         onClick={() => removeStop(idx)}
-                        style={{ background: 'transparent', border: 'none', color: 'var(--color-terracotta, #C85A32)', cursor: 'pointer', fontSize: '18px', padding: '0' }}
+                        style={{ background: 'transparent', border: 'none', color: 'var(--color-terracotta, #1648a3)', cursor: 'pointer', fontSize: '18px', padding: '0' }}
                         title="Remove stop"
                       >
                         ✕
@@ -204,7 +204,7 @@ export const TripPlannerPage = () => {
                   <button
                     type="button"
                     onClick={addStop}
-                    style={{ background: 'transparent', border: '1px dashed var(--color-terracotta, #C85A32)', color: 'var(--color-terracotta, #C85A32)', padding: '8px 14px', borderRadius: '6px', fontSize: '13px', cursor: 'pointer', marginTop: '6px' }}
+                    style={{ background: 'transparent', border: '1px dashed var(--color-terracotta, #1648a3)', color: 'var(--color-terracotta, #1648a3)', padding: '8px 14px', borderRadius: '6px', fontSize: '13px', cursor: 'pointer', marginTop: '6px' }}
                   >
                     + {language === 'es' ? 'Añadir otra parada / destino' : 'Add another stop'}
                   </button>
@@ -359,7 +359,7 @@ export const TripPlannerPage = () => {
               <div style={{ background: '#FFFFFF', borderRadius: '8px', border: '1px solid rgba(220, 210, 195, 0.8)', padding: '16px', marginBottom: '16px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', borderBottom: '1px solid rgba(220, 210, 195, 0.5)', paddingBottom: '8px' }}>
                   <strong>{language === 'es' ? 'Ruta Principal:' : 'Primary Route:'}</strong>
-                  <span style={{ color: 'var(--color-terracotta, #C85A32)', fontWeight: 700 }}>
+                  <span style={{ color: 'var(--color-terracotta, #1648a3)', fontWeight: 700 }}>
                     {origin} ➔ {stops.map((s) => s.city).join(' ➔ ')}
                   </span>
                 </div>

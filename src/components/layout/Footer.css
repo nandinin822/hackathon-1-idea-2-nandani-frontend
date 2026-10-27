@@ -22,26 +22,16 @@
 .footer-brand-title-wrap {
   display: flex;
   align-items: center;
-  gap: 10px;
   margin-bottom: 14px;
 }
 
-.footer-brand-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(200, 90, 50, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.footer-brand-title {
-  font-family: var(--font-serif);
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0;
+.footer-brand-logo-img {
+  height: 38px;
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
 }
 
 .footer-brand-desc {

@@ -16,7 +16,7 @@ export const CalculatorPage = () => {
         <div className="container page-header-container">
           <div className="subpage-badge">
             <Badge variant="terracotta">
-              {isEs ? 'Calculadora de Ratio 1:1' : '1:1 Transfer Ratio Tool'}
+              {isEs ? 'Calculadora de Transferencias' : 'Points Transfer Tool'}
             </Badge>
           </div>
           <h1 className="page-title">
@@ -76,7 +76,7 @@ export const CalculatorPage = () => {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', marginBottom: '24px' }}>
               <div style={{ background: '#FFFFFF', padding: '16px', borderRadius: '8px', border: '1px solid rgba(220, 210, 195, 0.7)' }}>
-                <span style={{ color: 'var(--color-terracotta, #C85A32)', fontWeight: 800, fontSize: '1.2rem', display: 'block', marginBottom: '4px' }}>01</span>
+                <span style={{ color: 'var(--color-terracotta, #1648a3)', fontWeight: 800, fontSize: '1.2rem', display: 'block', marginBottom: '4px' }}>01</span>
                 <strong style={{ display: 'block', fontSize: '13px', color: 'var(--color-espresso-950)', marginBottom: '4px' }}>
                   {isEs ? 'Verifica la plaza disponible' : 'Confirm Award Seat First'}
                 </strong>
@@ -88,7 +88,7 @@ export const CalculatorPage = () => {
               </div>
 
               <div style={{ background: '#FFFFFF', padding: '16px', borderRadius: '8px', border: '1px solid rgba(220, 210, 195, 0.7)' }}>
-                <span style={{ color: 'var(--color-terracotta, #C85A32)', fontWeight: 800, fontSize: '1.2rem', display: 'block', marginBottom: '4px' }}>02</span>
+                <span style={{ color: 'var(--color-terracotta, #1648a3)', fontWeight: 800, fontSize: '1.2rem', display: 'block', marginBottom: '4px' }}>02</span>
                 <strong style={{ display: 'block', fontSize: '13px', color: 'var(--color-espresso-950)', marginBottom: '4px' }}>
                   {isEs ? 'Vincula tu número de viajero' : 'Link Frequent Flyer Account'}
                 </strong>
@@ -100,7 +100,7 @@ export const CalculatorPage = () => {
               </div>
 
               <div style={{ background: '#FFFFFF', padding: '16px', borderRadius: '8px', border: '1px solid rgba(220, 210, 195, 0.7)' }}>
-                <span style={{ color: 'var(--color-terracotta, #C85A32)', fontWeight: 800, fontSize: '1.2rem', display: 'block', marginBottom: '4px' }}>03</span>
+                <span style={{ color: 'var(--color-terracotta, #1648a3)', fontWeight: 800, fontSize: '1.2rem', display: 'block', marginBottom: '4px' }}>03</span>
                 <strong style={{ display: 'block', fontSize: '13px', color: 'var(--color-espresso-950)', marginBottom: '4px' }}>
                   {isEs ? 'Transfiere y reserva de inmediato' : 'Transfer & Book Immediately'}
                 </strong>

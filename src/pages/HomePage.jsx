@@ -94,7 +94,7 @@ export const HomePage = () => {
       <PointsCalculator />
 
       {/* 4. Featured Destinations (DESTINOS DESTACADOS) */}
-      <section className="destinations-showcase-section" id="destinos">
+      <section className="destinations-showcase-section reveal-on-scroll" id="destinos">
         <div className="container">
           {/* Section Header with Eyebrow and View All link */}
           <div className="destinations-top-bar">
@@ -110,7 +110,7 @@ export const HomePage = () => {
           {/* 3 Destination Cards */}
           <div className="destinations-cards-grid">
             {/* Card 1: Nueva York */}
-            <article className="destination-preview-card">
+            <article className="destination-preview-card reveal-on-scroll reveal-delay-1">
               <div className="card-thumb-wrap">
                 <img
                   src={destNyImg}
@@ -164,7 +164,7 @@ export const HomePage = () => {
             </article>
 
             {/* Card 2: Tokio */}
-            <article className="destination-preview-card">
+            <article className="destination-preview-card reveal-on-scroll reveal-delay-2">
               <div className="card-thumb-wrap">
                 <img
                   src={destTokyoImg}
@@ -218,7 +218,7 @@ export const HomePage = () => {
             </article>
 
             {/* Card 3: Ciudad del Cabo */}
-            <article className="destination-preview-card">
+            <article className="destination-preview-card reveal-on-scroll reveal-delay-3">
               <div className="card-thumb-wrap">
                 <img
                   src={destCapeTownImg}
@@ -275,7 +275,7 @@ export const HomePage = () => {
       </section>
 
       {/* 5. How It Works (3-Step Roadmap) */}
-      <section className="how-roadmap-section" id="como-funciona">
+      <section className="how-roadmap-section reveal-on-scroll" id="como-funciona">
         <div className="container">
           <div className="how-header-box">
             <span className="how-eyebrow">{t('howItWorks.eyebrow')}</span>
@@ -284,7 +284,7 @@ export const HomePage = () => {
           </div>
 
           <div className="how-steps-grid">
-            <div className="how-step-card">
+            <div className="how-step-card reveal-on-scroll reveal-delay-1">
               <div className="step-card-top">
                 <span className="step-num-badge">01</span>
                 <span className="step-category-pill pill-azure">{t('howItWorks.step1Badge')}</span>
@@ -293,7 +293,7 @@ export const HomePage = () => {
               <p className="step-text">{t('howItWorks.step1Desc')}</p>
             </div>
 
-            <div className="how-step-card">
+            <div className="how-step-card reveal-on-scroll reveal-delay-2">
               <div className="step-card-top">
                 <span className="step-num-badge bg-espresso">02</span>
                 <span className="step-category-pill pill-terracotta">{t('howItWorks.step2Badge')}</span>
@@ -302,7 +302,7 @@ export const HomePage = () => {
               <p className="step-text">{t('howItWorks.step2Desc')}</p>
             </div>
 
-            <div className="how-step-card">
+            <div className="how-step-card reveal-on-scroll reveal-delay-3">
               <div className="step-card-top">
                 <span className="step-num-badge bg-sage">03</span>
                 <span className="step-category-pill pill-sage">{t('howItWorks.step3Badge')}</span>
@@ -315,7 +315,7 @@ export const HomePage = () => {
       </section>
 
       {/* 6. Trust, Data Integrity & Verified Traveler Reviews */}
-      <section className="trust-ethics-section">
+      <section className="trust-ethics-section reveal-on-scroll">
         <div className="container">
           <div className="trust-layout-grid">
             {/* Left: 3 Pillars of Data Integrity */}

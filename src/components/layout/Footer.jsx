@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../localization/useLanguage';
+import logoWhiteImg from '../../assets/images/logo-white.png';
 import './Footer.css';
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -21,12 +22,9 @@ export const Footer = () => {
           {/* Brand Col */}
           <div className="footer-col-brand">
             <div className="footer-brand-title-wrap">
-              <div className="footer-brand-icon">
-                <svg className="star-compass-svg" viewBox="0 0 32 32" fill="none">
-                  <path d="M16 2L19.2 12.8L30 16L19.2 19.2L16 30L12.8 19.2L2 16L12.8 12.8L16 2Z" fill="#C85A32"/>
-                </svg>
-              </div>
-              <h3 className="footer-brand-title">{t('brand.name')}</h3>
+              <Link to="/" aria-label="BookMyFlight Home">
+                <img src={logoWhiteImg} alt="BookMyFlight" className="footer-brand-logo-img" />
+              </Link>
             </div>
             <p className="footer-brand-desc">{t('footer.tagline')}</p>
 

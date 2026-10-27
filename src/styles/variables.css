@@ -21,15 +21,16 @@
   --color-espresso-400: #9e8a7f;
   --color-espresso-200: #cfc2ba;
 
-  /* Terracotta Palette (Primary CTA, warmth, flight energy) */
-  --color-terracotta-50: #fdf5f2;
-  --color-terracotta-100: #faeae3;
-  --color-terracotta-200: #f4d4c6;
-  --color-terracotta-300: #e9ae97;
-  --color-terracotta-400: #db8364;
-  --color-terracotta-500: #c85a32;
-  --color-terracotta-600: #b34722;
-  --color-terracotta-700: #943717;
+  /* Aviation Royal Blue Palette (#1648a3 - Flight theme) */
+  --color-terracotta-50: #eff6ff;
+  --color-terracotta-100: #dbeafe;
+  --color-terracotta-200: #bfdbfe;
+  --color-terracotta-300: #93c5fd;
+  --color-terracotta-400: #3b82f6;
+  --color-terracotta-500: #1648a3; /* Primary Aviation Royal Blue */
+  --color-terracotta-600: #123c8a; /* Deep Aviation Blue */
+  --color-terracotta-700: #0e2d67; /* High-Altitude Navy */
+  --color-terracotta: #1648a3;
 
   /* Sage Palette (Award miles, eco savings, verified tags) */
   --color-sage-50: #f4f7f5;
@@ -53,8 +54,9 @@
   --text-muted: var(--color-espresso-400);
   --text-inverse: var(--color-ivory-50);
 
-  --brand-primary: var(--color-terracotta-500);
-  --brand-primary-hover: var(--color-terracotta-600);
+  --brand-primary: #1648a3;
+  --brand-primary-hover: #123c8a;
+  --brand-primary-gradient: linear-gradient(135deg, #1648a3 0%, #2563eb 100%);
   --brand-accent: var(--color-sage-500);
   --brand-accent-soft: var(--color-sage-100);
 
@@ -62,8 +64,21 @@
   --border-medium: var(--color-ivory-400);
   --border-strong: var(--color-espresso-200);
 
-  /* Typography */
-  --font-serif: 'Playfair Display', Georgia, serif;
+  /* Glassmorphism & Glassprism Tokens */
+  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.60);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.75);
+  --glass-shadow: 0 12px 36px -4px rgba(22, 72, 163, 0.10);
+  --glass-blur: blur(14px) saturate(180%);
+
+  --glassprism-bg: rgba(255, 255, 255, 0.75);
+  --glassprism-border: 1px solid rgba(255, 255, 255, 0.85);
+  --glassprism-shadow: 0 20px 48px -10px rgba(22, 72, 163, 0.16), 0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+  --glassprism-glow: 0 0 30px rgba(22, 72, 163, 0.18);
+  --glassprism-blur: blur(20px) saturate(190%);
+
+  /* Typography (Modern, clean, simplified sans-serif) */
+  --font-serif: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
@@ -113,7 +128,7 @@
   --shadow-md: 0 6px 18px rgba(29, 23, 20, 0.08);
   --shadow-lg: 0 14px 32px rgba(29, 23, 20, 0.1);
   --shadow-xl: 0 24px 50px rgba(29, 23, 20, 0.12);
-  --shadow-terracotta: 0 8px 24px rgba(200, 90, 50, 0.28);
+  --shadow-terracotta: 0 8px 24px rgba(22, 72, 163, 0.28);
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);

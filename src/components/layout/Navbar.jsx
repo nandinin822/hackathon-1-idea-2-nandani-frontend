@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useLanguage } from '../../localization/useLanguage';
+import { useAuth } from '../../context/AuthContext';
 import LanguageSwitcher from '../common/LanguageSwitcher';
 import AuthModal from '../common/AuthModal';
+import logoImg from '../../assets/images/logo-dualtone.png';
 import './Navbar.css';
 
 export const Navbar = () => {
   const { t } = useLanguage();
+  const { user, signOut } = useAuth();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
+
+  const userInitial = user?.email ? user.email.charAt(0).toUpperCase() : 'U';
 
   const closeMobile = () => setMobileMenuOpen(false);
 
@@ -28,26 +33,12 @@ export const Navbar = () => {
       <header className="navbar">
         <div className="container navbar-container">
           {/* Brand Logo */}
-          <Link to="/" className="navbar-logo" onClick={closeMobile}>
-            <div className="navbar-logo-icon-wrap" aria-hidden="true">
-              <svg className="star-compass-svg" viewBox="0 0 32 32" fill="none">
-                <path d="M16 2L19.2 12.8L30 16L19.2 19.2L16 30L12.8 19.2L2 16L12.8 12.8L16 2Z" fill="#C85A32"/>
-                <path d="M8 8L14.2 14.2M24 8L17.8 14.2M24 24L17.8 17.8M8 24L14.2 17.8" stroke="#C85A32" strokeWidth="1.6" strokeLinecap="round"/>
-                <circle cx="16" cy="16" r="2" fill="#FAF7F2"/>
-              </svg>
-            </div>
-            <span className="navbar-brand-name">{t('brand.name')}</span>
+          <Link to="/" className="navbar-logo" onClick={closeMobile} aria-label="BookMyFlight Home">
+            <img src={logoImg} alt="BookMyFlight" className="navbar-brand-logo-img" />
           </Link>
 
           {/* Center Desktop Navigation */}
           <nav className="navbar-links" aria-label="Main Navigation">
-            <NavLink
-              to="/"
-              end
-              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-            >
-              {t('nav.flights')}
-            </NavLink>
             <NavLink
               to="/trip-planner"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
@@ -68,10 +59,9 @@ export const Navbar = () => {
             </NavLink>
             <NavLink
               to="/calculator"
-              className={({ isActive }) => `nav-link nav-calc-link ${isActive ? 'active' : ''}`}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
             >
-              <span>{t('nav.calculator')}</span>
-              <span className="calc-pill-tag">1:1</span>
+              {t('nav.calculator')}
             </NavLink>
             <NavLink
               to="/wallet"
@@ -91,13 +81,34 @@ export const Navbar = () => {
           <div className="navbar-actions">
             <LanguageSwitcher />
 
-            <button
-              type="button"
-              className="nav-signin-btn"
-              onClick={() => setAuthModalOpen(true)}
-            >
-              {t('nav.signIn')}
-            </button>
+            {user ? (
+              <div className="nav-auth-user-group">
+                <button
+                  type="button"
+                  className="nav-user-initial-badge"
+                  onClick={() => setAuthModalOpen(true)}
+                  title={user.email}
+                  aria-label={`Account (${user.email})`}
+                >
+                  {userInitial}
+                </button>
+                <button
+                  type="button"
+                  className="nav-signout-btn"
+                  onClick={() => signOut()}
+                >
+                  {t('nav.signOut')}
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                className="nav-signin-btn"
+                onClick={() => setAuthModalOpen(true)}
+              >
+                {t('nav.signIn')}
+              </button>
+            )}
 
             {/* Mobile Menu Button */}
             <button
@@ -122,14 +133,6 @@ export const Navbar = () => {
         {mobileMenuOpen && (
           <div className="container mobile-nav open">
             <NavLink
-              to="/"
-              end
-              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-              onClick={closeMobile}
-            >
-              {t('nav.flights')}
-            </NavLink>
-            <NavLink
               to="/trip-planner"
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
               onClick={closeMobile}
@@ -155,7 +158,7 @@ export const Navbar = () => {
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
               onClick={closeMobile}
             >
-              {t('nav.calculator')} (1:1)
+              {t('nav.calculator')}
             </NavLink>
             <NavLink
               to="/wallet"
@@ -172,17 +175,36 @@ export const Navbar = () => {
               {t('nav.rewardsPlanner')}
             </NavLink>
             <div className="mobile-nav-actions">
-              <button
-                type="button"
-                className="nav-signin-btn"
-                onClick={() => {
-                  closeMobile();
-                  setAuthModalOpen(true);
-                }}
-                style={{ width: '100%', textAlign: 'center' }}
-              >
-                {t('nav.signIn')}
-              </button>
+              {user ? (
+                <div className="mobile-user-box">
+                  <div className="mobile-user-info">
+                    <span className="nav-user-initial-badge mobile-initial">{userInitial}</span>
+                    <span className="user-email-text">{user.email}</span>
+                  </div>
+                  <button
+                    type="button"
+                    className="nav-signout-btn mobile-btn"
+                    onClick={() => {
+                      closeMobile();
+                      signOut();
+                    }}
+                  >
+                    {t('nav.signOut')}
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  className="nav-signin-btn"
+                  onClick={() => {
+                    closeMobile();
+                    setAuthModalOpen(true);
+                  }}
+                  style={{ width: '100%', textAlign: 'center' }}
+                >
+                  {t('nav.signIn')}
+                </button>
+              )}
             </div>
           </div>
         )}

@@ -70,7 +70,7 @@ export const ComparisonEngine = ({ activeRouteKey = 'jfk', onSelectRoute }) => {
   };
 
   return (
-    <section className="engine-section" id="soluciones">
+    <section className="engine-section reveal-on-scroll" id="soluciones">
       <div className="container">
         {/* Header & Route Selector */}
         <div className="engine-top-bar">

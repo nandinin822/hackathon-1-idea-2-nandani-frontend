@@ -165,7 +165,7 @@ export const CardWalletPage = () => {
                     >
                       <div className="card-opt-header">
                         <span className="card-issuer-tag">{card.issuer}</span>
-                        {isSelected && <span style={{ color: 'var(--color-terracotta, #C85A32)' }}>✓</span>}
+                        {isSelected && <span style={{ color: 'var(--color-terracotta, #1648a3)' }}>✓</span>}
                       </div>
                       <h4 className="card-opt-title">{card.name}</h4>
                       <span className="card-opt-program">{card.program}</span>
@@ -273,7 +273,7 @@ export const CardWalletPage = () => {
                       href={activeCard?.sourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ color: 'var(--color-terracotta, #C85A32)', textDecoration: 'underline', marginTop: '4px', display: 'inline-block' }}
+                      style={{ color: 'var(--color-terracotta, #1648a3)', textDecoration: 'underline', marginTop: '4px', display: 'inline-block' }}
                     >
                       {language === 'es' ? 'Ver términos oficiales del emisor ↗' : 'Official Issuer Terms ↗'}
                     </a>

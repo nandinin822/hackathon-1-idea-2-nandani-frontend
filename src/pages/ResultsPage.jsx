@@ -336,7 +336,7 @@ export const ResultsPage = () => {
                                 <span>✨ {t('results.potentialSavings')}: <strong>~${award.savings} USD</strong></span>
                               </div>
                               {walletProfile && (
-                                <div style={{ fontSize: '11px', marginTop: '4px', color: hasEnoughPoints ? 'var(--color-sage, #2E6F40)' : 'var(--color-terracotta, #C85A32)' }}>
+                                <div style={{ fontSize: '11px', marginTop: '4px', color: hasEnoughPoints ? 'var(--color-sage, #2E6F40)' : 'var(--color-terracotta, #1648a3)' }}>
                                   {hasEnoughPoints
                                     ? `✓ ${language === 'es' ? 'Tienes suficientes puntos en tu billetera' : 'You have enough points in your wallet'}`
                                     : `⚠️ ${language === 'es' ? `Te faltan ${(award.rawMiles - userBalance).toLocaleString()} puntos` : `Need ${(award.rawMiles - userBalance).toLocaleString()} more points`}`}

@@ -140,10 +140,139 @@ p.lead {
   position: absolute;
   top: -120px;
   right: -80px;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(200, 90, 50, 0.12) 0%, rgba(98, 140, 111, 0.08) 50%, transparent 70%);
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, rgba(22, 72, 163, 0.18) 0%, rgba(37, 99, 235, 0.08) 50%, transparent 70%);
   pointer-events: none;
   z-index: 0;
-  filter: blur(40px);
+  filter: blur(55px);
 }
+
+/* Glassmorphism Card Utility */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-xl);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.glass-card:hover {
+  box-shadow: 0 16px 40px -4px rgba(22, 72, 163, 0.16);
+  transform: translateY(-2px);
+}
+
+/* Glassprism Card with Rainbow Refraction Border & Depth */
+.glassprism {
+  background: var(--glassprism-bg);
+  backdrop-filter: var(--glassprism-blur);
+  -webkit-backdrop-filter: var(--glassprism-blur);
+  border: var(--glassprism-border);
+  box-shadow: var(--glassprism-shadow);
+  border-radius: var(--radius-xl);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.glassprism::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(22, 72, 163, 0.9) 25%, 
+    rgba(56, 189, 248, 0.95) 50%, 
+    rgba(99, 102, 241, 0.9) 75%, 
+    transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.glassprism:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 50px -8px rgba(22, 72, 163, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+}
+
+/* Animations */
+@keyframes floatBadge {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulseSubtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.92;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes shimmerGlow {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Scroll Entrance Animations */
+@keyframes scrollFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: floatBadge 4s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 3s ease-in-out infinite;
+}
+
+.scroll-reveal {
+  animation: scrollFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Scroll Triggered Animations via IntersectionObserver */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+

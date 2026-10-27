@@ -1,0 +1,68 @@
+/* ==========================================================================
+   Background 3D Elements, Glassprism, and Ambient Flight Atmosphere
+   ========================================================================== */
+
+.bg-atmosphere-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* 1. Subtle World Flight Grid Pattern with Low Opacity */
+.bg-flight-routes-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(22, 72, 163, 0.05) 1px, transparent 1px),
+    linear-gradient(to right, rgba(22, 72, 163, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(22, 72, 163, 0.02) 1px, transparent 1px);
+  background-size: 48px 48px, 96px 96px, 96px 96px;
+  opacity: 0.75;
+}
+
+/* 2. 3D Floating Flight Trail / Orbital Ring */
+.bg-3d-orbital-ring {
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: 500px;
+  height: 220px;
+  border: 2px dashed rgba(22, 72, 163, 0.14);
+  border-radius: 50%;
+  transform: rotate(-25deg);
+  animation: rotateRing 30s linear infinite;
+}
+
+/* 3. Ambient Glowing Flight Light Cones */
+.bg-ambient-cone-1 {
+  position: absolute;
+  top: -150px;
+  left: 30%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(22, 72, 163, 0.14) 0%, rgba(37, 99, 235, 0.05) 50%, transparent 70%);
+  filter: blur(60px);
+}
+
+.bg-ambient-cone-2 {
+  position: absolute;
+  top: 60%;
+  right: 10%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(22, 72, 163, 0.10) 0%, rgba(56, 189, 248, 0.04) 50%, transparent 70%);
+  filter: blur(60px);
+}
+
+/* Keyframe Animations */
+
+@keyframes rotateRing {
+  from {
+    transform: rotate(-25deg);
+  }
+  to {
+    transform: rotate(335deg);
+  }
+}

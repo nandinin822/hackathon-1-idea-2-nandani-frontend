@@ -49,7 +49,7 @@ export const MilesAndPointsPage = () => {
               </p>
             </div>
 
-            <div style={{ background: '#FAF7F2', border: '2px solid var(--color-terracotta, #C85A32)', borderRadius: '12px', padding: '24px', position: 'relative' }}>
+            <div style={{ background: '#FAF7F2', border: '2px solid var(--color-terracotta, #1648a3)', borderRadius: '12px', padding: '24px', position: 'relative' }}>
               <div style={{ position: 'absolute', top: '12px', right: '14px' }}>
                 <Badge variant="terracotta">{isEs ? 'MÁXIMA FLEXIBILIDAD' : 'HIGH VALUE'}</Badge>
               </div>
@@ -121,7 +121,7 @@ export const MilesAndPointsPage = () => {
                   </span>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--color-terracotta, #C85A32)', fontFamily: 'monospace', display: 'block' }}>
+                  <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--color-terracotta, #1648a3)', fontFamily: 'monospace', display: 'block' }}>
                     34,000 – 42,500 Avios
                   </span>
                   <span style={{ fontSize: '11px', color: 'var(--color-sage, #2E6F40)', fontWeight: 600 }}>
@@ -140,7 +140,7 @@ export const MilesAndPointsPage = () => {
                   </span>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--color-terracotta, #C85A32)', fontFamily: 'monospace', display: 'block' }}>
+                  <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--color-terracotta, #1648a3)', fontFamily: 'monospace', display: 'block' }}>
                     25,000 – 35,000 Flying Blue
                   </span>
                   <span style={{ fontSize: '11px', color: 'var(--color-sage, #2E6F40)', fontWeight: 600 }}>

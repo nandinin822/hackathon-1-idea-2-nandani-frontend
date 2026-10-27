@@ -378,7 +378,7 @@ export const RewardsPlannerPage = () => {
                       </div>
                       <div className="comp-bar-item text-right">
                         <span>{language === 'es' ? 'Puntos a ganar:' : 'Future earned:'}</span>
-                        <span className="val" style={{ color: 'var(--color-terracotta, #C85A32)' }}>
+                        <span className="val" style={{ color: 'var(--color-terracotta, #1648a3)' }}>
                           +{planResult.estimated_points_earned.toLocaleString()}
                         </span>
                       </div>
@@ -415,7 +415,7 @@ export const RewardsPlannerPage = () => {
                     {planResult.monthly_breakdown.ineligible_monthly_spend > 0 && (
                       <div className="breakdown-row">
                         <span>{language === 'es' ? 'Gasto no elegible (Alquiler):' : 'Ineligible spend (Rent):'}</span>
-                        <span style={{ color: 'var(--color-terracotta, #C85A32)' }}>
+                        <span style={{ color: 'var(--color-terracotta, #1648a3)' }}>
                           ${planResult.monthly_breakdown.ineligible_monthly_spend.toLocaleString()}
                         </span>
                       </div>

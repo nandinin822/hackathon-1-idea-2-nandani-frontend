@@ -108,11 +108,11 @@ export const SolutionsPage = () => {
           <div
             style={{
               background: '#FFFFFF',
-              border: '2px solid var(--color-terracotta, #C85A32)',
+              border: '2px solid var(--color-terracotta, #1648a3)',
               borderRadius: '16px',
               padding: '32px',
               textAlign: 'center',
-              boxShadow: '0 10px 30px rgba(200, 90, 50, 0.08)',
+              boxShadow: '0 10px 30px rgba(22, 72, 163, 0.08)',
             }}
           >
             <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', color: 'var(--color-espresso-950)', margin: '0 0 10px 0' }}>

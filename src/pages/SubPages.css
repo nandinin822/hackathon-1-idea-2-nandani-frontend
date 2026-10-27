@@ -3,30 +3,46 @@
    ========================================================================== */
 
 .page-header {
-  background: var(--color-espresso-950);
-  color: var(--color-ivory-50);
+  background: linear-gradient(135deg, #091c42 0%, #1648a3 50%, #1d4ed8 100%);
+  color: #ffffff;
   padding: var(--space-12) 0 var(--space-8);
-  border-bottom: 1px solid var(--border-subtle);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/images/hero-airplane-wing.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
 .page-header-container {
   max-width: 900px;
   margin: 0 auto;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .page-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: clamp(2rem, 3.5vw, 3rem);
-  font-weight: 700;
+  font-weight: 800;
   margin-bottom: var(--space-3);
-  color: var(--color-ivory-50);
+  color: #ffffff;
+  letter-spacing: -0.02em;
 }
 
 .page-subtitle {
   font-size: var(--font-size-base);
-  color: var(--color-ivory-200);
+  color: #e0f2fe;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -37,16 +53,43 @@
   min-height: 60vh;
 }
 
-/* Card container */
+/* Card container with Glassprism Effect */
 .subpage-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
+  background: var(--glassprism-bg);
+  backdrop-filter: var(--glassprism-blur);
+  -webkit-backdrop-filter: var(--glassprism-blur);
+  border: var(--glassprism-border);
   border-radius: var(--radius-xl);
   padding: var(--space-8);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--glassprism-shadow);
   max-width: 700px;
   margin: 0 auto;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.subpage-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(22, 72, 163, 0.9) 25%, 
+    rgba(56, 189, 248, 0.95) 50%, 
+    rgba(99, 102, 241, 0.9) 75%, 
+    transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.subpage-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 50px -8px rgba(22, 72, 163, 0.22);
 }
 
 .subpage-badge {
